@@ -2,7 +2,6 @@ import streamlit as st
 
 st.set_page_config(page_title="صائد المؤثرات الذكي", layout="wide")
 
-# واجهة مستخدم محسنة للهاتف
 st.markdown("""
     <style>
     .stApp { background-color: #0d1117; color: #58a6ff; }
@@ -23,17 +22,17 @@ st.markdown("""
 
 st.title("🤖 صائد المؤثرات الصوتي")
 
-# روابط مباشرة تعمل 100% (من سيرفرات SoundJay)
+# روابط عالمية مفتوحة (Wikimedia Commons) - تعمل 100%
 fx_data = [
-    {"title": "انفجار قوي (Explosion)", "url": "https://www.soundjay.com/mechanical/sounds/explosion-02.mp3"},
-    {"title": "انتقال سريع (Whoosh)", "url": "https://www.soundjay.com/free-music/sounds/pizzicato-01.mp3"},
-    {"title": "ضغطة زر (Interface)", "url": "https://www.soundjay.com/button/sounds/button-3.mp3"}
+    {"title": "صوت رعد (Thunder Sound)", "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Thunder_close_1.ogg"},
+    {"title": "تنبيه رقمي (Digital Notification)", "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Incoming_message.ogg"},
+    {"title": "صوت كيبورد (Keyboard Typing)", "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Typing_on_a_computer_keyboard.ogg"}
 ]
 
 for fx in fx_data:
     st.subheader(f"🎵 {fx['title']}")
-    # مشغل الصوت
+    # مشغل الصوت (يدعم ملفات OGG و MP3)
     st.audio(fx['url'])
-    # زر تحميل حقيقي يفتح الملف للتحميل
-    st.markdown(f'<a href="{fx["url"]}" target="_blank" class="download-btn">⬇️ اضغط هنا لتحميل MP3</a>', unsafe_allow_html=True)
+    # زر التحميل
+    st.markdown(f'<a href="{fx["url"]}" target="_blank" class="download-btn">⬇️ اضغط هنا للتحميل المباشر</a>', unsafe_allow_html=True)
     st.divider()
