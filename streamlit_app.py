@@ -1,63 +1,55 @@
 import streamlit as st
 
-# إعداد واجهة احترافية تشبه Artlist
-st.set_page_config(page_title="ArtSFX - مكتبة المونتاج الحرة", page_icon="🎬", layout="wide")
+# إعداد واجهة سينمائية احترافية
+st.set_page_config(page_title="ArtSFX Pro", layout="wide")
 
-# تصميم الثيم المظلم والأنيق
+# تصميم مستوحى من Artlist
 st.markdown("""
     <style>
-    .stApp { background-color: #050505; color: #ffffff; }
+    .stApp { background-color: #000000; color: #ffffff; }
     .sfx-card {
-        background: #111111;
-        padding: 1.5rem;
-        border-radius: 10px;
-        border: 1px solid #333;
-        margin-bottom: 1rem;
-        transition: 0.3s;
+        background: #111;
+        padding: 20px;
+        border-radius: 12px;
+        border-bottom: 3px solid #f39c12;
+        margin-bottom: 15px;
     }
-    .sfx-card:hover { border-color: #ffeb3b; }
-    .category-header { color: #ffeb3b; border-bottom: 2px solid #ffeb3b; padding-bottom: 5px; }
+    h3 { color: #f39c12; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("🎬 ArtSFX Free Library")
-st.write("بديلك المجاني لـ Artlist - مؤثرات منتقاة للمونتاج الاحترافي")
+st.title("🎬 ArtSFX: مكتبة المونتاج الاحترافية")
+st.write("بديلك المجاني والأسرع لـ Artlist")
 
-# قائمة مؤثرات موسعة بروابط مباشرة من خوادم موثوقة (Direct CDN)
-sfx_groups = {
-    "🔥 Cinematic & Transitions": [
-        {"name": "Deep Cinematic Hit", "url": "https://actions.google.com/sounds/v1/science_fiction/low_vibe.ogg"},
-        {"name": "Fast Wind Whoosh", "url": "https://actions.google.com/sounds/v1/foley/wind_whoosh_fast.ogg"},
-        {"name": "Glitch Static", "url": "https://actions.google.com/sounds/v1/science_fiction/glitch_digital_static.ogg"},
-        {"name": "Epic Rise", "url": "https://actions.google.com/sounds/v1/science_fiction/ufo_take_off.ogg"}
+# مكتبة مؤثرات ضخمة (روابط مباشرة 100%)
+sfx_categories = {
+    "🔥 Cinematic (انفجارات وانتقالات)": [
+        {"n": "Explosion Deep", "u": "https://www.soundjay.com/mechanical/sounds/explosion-01.mp3"},
+        {"n": "Cinematic Whoosh", "u": "https://actions.google.com/sounds/v1/foley/wind_whoosh_fast.ogg"},
+        {"n": "Heavy Thud", "u": "https://actions.google.com/sounds/v1/science_fiction/low_vibe.ogg"},
+        {"n": "Glitch Transition", "u": "https://actions.google.com/sounds/v1/science_fiction/glitch_digital_static.ogg"}
     ],
-    "💻 Tech & Digital": [
-        {"name": "Keyboard Mechanical", "url": "https://actions.google.com/sounds/v1/office/typing_medium_speed.ogg"},
-        {"name": "Digital Notification", "url": "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"},
-        {"name": "Mouse Click", "url": "https://actions.google.com/sounds/v1/office/mouse_click.ogg"},
-        {"name": "UI Selection", "url": "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"}
+    "🎮 Gaming & UI (ألعاب وواجهات)": [
+        {"n": "Level Up Sync", "u": "https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"},
+        {"n": "Digital Beep", "u": "https://www.soundjay.com/buttons/sounds/button-16.mp3"},
+        {"n": "Success Chime", "u": "https://www.soundjay.com/misc/sounds/magic-chime-01.mp3"},
+        {"n": "Coin Collect", "u": "https://storage.googleapis.com/codeskulptor-assets/objects/coin_1.mp3"}
     ],
-    "🌲 Nature & Ambience": [
-        {"name": "Rain & Thunder", "url": "https://actions.google.com/sounds/v1/weather/rain_on_roof.ogg"},
-        {"name": "Forest Birds", "url": "https://actions.google.com/sounds/v1/ambiences/forest_ambience.ogg"},
-        {"name": "Ocean Waves", "url": "https://actions.google.com/sounds/v1/weather/ocean_waves_crashing.ogg"}
+    "🏢 Office & Nature (واقعي وطبيعة)": [
+        {"n": "Keyboard Typing", "u": "https://actions.google.com/sounds/v1/office/typing_medium_speed.ogg"},
+        {"n": "Rain & Thunder", "u": "https://actions.google.com/sounds/v1/weather/rain_on_roof.ogg"},
+        {"n": "Camera Shutter", "u": "https://www.soundjay.com/mechanical/sounds/camera-shutter-click-01.mp3"}
     ]
 }
 
-# عرض المحتوى بشكل منظم
-for category, sounds in sfx_groups.items():
-    st.markdown(f"<h2 class='category-header'>{category}</h2>", unsafe_allow_html=True)
-    
-    # توزيع الأصوات في أعمدة (Grid)
+# عرض الأصوات في شبكة (Grid)
+for cat, sounds in sfx_categories.items():
+    st.subheader(cat)
     cols = st.columns(2)
     for i, sfx in enumerate(sounds):
         with cols[i % 2]:
-            st.markdown(f"""
-                <div class='sfx-card'>
-                    <h4>{sfx['name']}</h4>
-                </div>
-            """, unsafe_allow_html=True)
-            st.audio(sfx["url"])
+            st.markdown(f'<div class="sfx-card"><h3>{sfx["n"]}</h3>', unsafe_allow_html=True)
+            st.audio(sfx["u"])
+            st.markdown(f'<a href="{sfx["u"]}" target="_blank" style="color:#aaa;text-decoration:none;">📥 تحميل الملف</a></div>', unsafe_allow_html=True)
 
-st.divider()
-st.caption("ملاحظة: هذه الأصوات مقدمة من مستودعات Google Open Source وهي تعمل 100% في أي مكان.")
+st.success("تم تحديث المكتبة بأحدث الروابط المباشرة!")
