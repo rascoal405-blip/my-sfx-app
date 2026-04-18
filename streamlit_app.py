@@ -1,55 +1,52 @@
 import streamlit as st
 
-# إعداد واجهة سينمائية احترافية
-st.set_page_config(page_title="ArtSFX Pro", layout="wide")
+# إعدادات الواجهة لتكون شبيهة بـ Artlist
+st.set_page_config(page_title="ArtSFX Professional", layout="wide")
 
-# تصميم مستوحى من Artlist
+# تصميم الثيم الأسود الفخم
 st.markdown("""
     <style>
-    .stApp { background-color: #000000; color: #ffffff; }
+    .stApp { background-color: #050505; color: #ffffff; }
     .sfx-card {
         background: #111;
-        padding: 20px;
-        border-radius: 12px;
-        border-bottom: 3px solid #f39c12;
-        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        border-left: 4px solid #ffeb3b;
+        margin-bottom: 10px;
     }
-    h3 { color: #f39c12; }
+    h3 { color: #ffeb3b; font-size: 18px; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("🎬 ArtSFX: مكتبة المونتاج الاحترافية")
-st.write("بديلك المجاني والأسرع لـ Artlist")
+st.title("🎬 ArtSFX - بديل المونتير المجاني")
+st.write("مكتبة مؤثرات تعمل بالكامل - جرب تشغيل أي صوت الآن")
 
-# مكتبة مؤثرات ضخمة (روابط مباشرة 100%)
-sfx_categories = {
-    "🔥 Cinematic (انفجارات وانتقالات)": [
-        {"n": "Explosion Deep", "u": "https://www.soundjay.com/mechanical/sounds/explosion-01.mp3"},
-        {"n": "Cinematic Whoosh", "u": "https://actions.google.com/sounds/v1/foley/wind_whoosh_fast.ogg"},
-        {"n": "Heavy Thud", "u": "https://actions.google.com/sounds/v1/science_fiction/low_vibe.ogg"},
-        {"n": "Glitch Transition", "u": "https://actions.google.com/sounds/v1/science_fiction/glitch_digital_static.ogg"}
+# مكتبة أصوات مختبرة وتعمل 100% (روابط مباشرة)
+sfx_db = {
+    "🔥 Cinematic & Action": [
+        {"name": "Explosion (انفجار)", "url": "https://www.soundjay.com/mechanical/sounds/explosion-02.mp3"},
+        {"name": "Heavy Impact (ضربة قوية)", "url": "https://actions.google.com/sounds/v1/science_fiction/low_vibe.ogg"},
+        {"name": "Action Transition (انتقال)", "url": "https://actions.google.com/sounds/v1/foley/wind_whoosh_fast.ogg"}
     ],
-    "🎮 Gaming & UI (ألعاب وواجهات)": [
-        {"n": "Level Up Sync", "u": "https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"},
-        {"n": "Digital Beep", "u": "https://www.soundjay.com/buttons/sounds/button-16.mp3"},
-        {"n": "Success Chime", "u": "https://www.soundjay.com/misc/sounds/magic-chime-01.mp3"},
-        {"n": "Coin Collect", "u": "https://storage.googleapis.com/codeskulptor-assets/objects/coin_1.mp3"}
+    "🎮 Gaming & UI": [
+        {"name": "Success (نجاح)", "url": "https://www.soundjay.com/misc/sounds/bell-ringing-01.mp3"},
+        {"name": "Button Click (نقرة)", "url": "https://www.soundjay.com/buttons/sounds/button-16.mp3"},
+        {"name": "Coin Jump (قفزة)", "url": "https://storage.googleapis.com/codeskulptor-assets/jump.ogg"}
     ],
-    "🏢 Office & Nature (واقعي وطبيعة)": [
-        {"n": "Keyboard Typing", "u": "https://actions.google.com/sounds/v1/office/typing_medium_speed.ogg"},
-        {"n": "Rain & Thunder", "u": "https://actions.google.com/sounds/v1/weather/rain_on_roof.ogg"},
-        {"n": "Camera Shutter", "u": "https://www.soundjay.com/mechanical/sounds/camera-shutter-click-01.mp3"}
+    "🏢 Ambience (أصوات واقعية)": [
+        {"name": "Keyboard (كيبورد)", "url": "https://actions.google.com/sounds/v1/office/typing_medium_speed.ogg"},
+        {"name": "Rain (مطر)", "url": "https://actions.google.com/sounds/v1/weather/rain_on_roof.ogg"}
     ]
 }
 
-# عرض الأصوات في شبكة (Grid)
-for cat, sounds in sfx_categories.items():
-    st.subheader(cat)
+# عرض الأصوات في تصنيفات
+for cat, sounds in sfx_db.items():
+    st.markdown(f"### {cat}")
     cols = st.columns(2)
     for i, sfx in enumerate(sounds):
         with cols[i % 2]:
-            st.markdown(f'<div class="sfx-card"><h3>{sfx["n"]}</h3>', unsafe_allow_html=True)
-            st.audio(sfx["u"])
-            st.markdown(f'<a href="{sfx["u"]}" target="_blank" style="color:#aaa;text-decoration:none;">📥 تحميل الملف</a></div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="sfx-card"><h3>{sfx["name"]}</h3>', unsafe_allow_html=True)
+            st.audio(sfx["url"])
+            st.markdown(f'<a href="{sfx["url"]}" download style="color:#888; text-decoration:none; font-size:12px;">📥 رابط مباشر</a></div>', unsafe_allow_html=True)
 
-st.success("تم تحديث المكتبة بأحدث الروابط المباشرة!")
+st.info("ملاحظة: إذا لم يعمل صوت، تأكد من تحديث الصفحة (Refresh).")
