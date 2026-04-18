@@ -1,70 +1,63 @@
 import streamlit as st
 
-# إعدادات الصفحة الاحترافية
-st.set_page_config(page_title="SFX Elite - مكتبة المؤثرات", page_icon="🎧", layout="wide")
+# إعداد واجهة احترافية تشبه Artlist
+st.set_page_config(page_title="ArtSFX - مكتبة المونتاج الحرة", page_icon="🎬", layout="wide")
 
-# تصميم الواجهة (CSS)
+# تصميم الثيم المظلم والأنيق
 st.markdown("""
     <style>
-    .main { background-color: #0e1117; }
-    .stAudio { width: 100%; }
+    .stApp { background-color: #050505; color: #ffffff; }
     .sfx-card {
-        background-color: #1f2937;
-        padding: 20px;
-        border-radius: 15px;
-        border-left: 5px solid #00d4ff;
-        margin-bottom: 20px;
+        background: #111111;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid #333;
+        margin-bottom: 1rem;
+        transition: 0.3s;
     }
+    .sfx-card:hover { border-color: #ffeb3b; }
+    .category-header { color: #ffeb3b; border-bottom: 2px solid #ffeb3b; padding-bottom: 5px; }
     </style>
     """, unsafe_allow_html=True)
 
-st.title("🎧 SFX Elite - المكتبة الاحترافية للمونتاج")
-st.write("مجموعة مختارة من أفضل المؤثرات الصوتية بجودة عالية")
+st.title("🎬 ArtSFX Free Library")
+st.write("بديلك المجاني لـ Artlist - مؤثرات منتقاة للمونتاج الاحترافي")
 
-# تقسيم المؤثرات إلى تصنيفات
-tab1, tab2, tab3 = st.tabs(["🔥 سينمائي وانفجارات", "🎮 ألعاب وإلكتروني", "🔔 تنبيهات وواجهة"])
-
-# قاعدة بيانات المؤثرات (روابط مباشرة مضمونة)
-sfx_library = {
-    "Cinematic": [
-        {"name": "انفجار ضخم (Epic Explosion)", "url": "https://www.soundjay.com/mechanical/sounds/explosion-01.mp3"},
-        {"name": "ضربة سينمائية (Cinematic Hit)", "url": "https://www.soundjay.com/free-music/sounds/action-climax-01.mp3"},
-        {"name": "تراجع صوتي (Whoosh)", "url": "https://www.soundjay.com/free-music/sounds/fast-whoosh-01.mp3"},
-        {"name": "صوت رعد (Thunder)", "url": "https://www.soundjay.com/nature/sounds/thunder-01.mp3"}
+# قائمة مؤثرات موسعة بروابط مباشرة من خوادم موثوقة (Direct CDN)
+sfx_groups = {
+    "🔥 Cinematic & Transitions": [
+        {"name": "Deep Cinematic Hit", "url": "https://actions.google.com/sounds/v1/science_fiction/low_vibe.ogg"},
+        {"name": "Fast Wind Whoosh", "url": "https://actions.google.com/sounds/v1/foley/wind_whoosh_fast.ogg"},
+        {"name": "Glitch Static", "url": "https://actions.google.com/sounds/v1/science_fiction/glitch_digital_static.ogg"},
+        {"name": "Epic Rise", "url": "https://actions.google.com/sounds/v1/science_fiction/ufo_take_off.ogg"}
     ],
-    "Gaming": [
-        {"name": "قفزة سوبر ماريو", "url": "https://storage.googleapis.com/codeskulptor-assets/jump.ogg"},
-        {"name": "عملة معدنية (Coin)", "url": "https://storage.googleapis.com/codeskulptor-assets/objects/coin_1.mp3"},
-        {"name": "خسارة (Game Over)", "url": "https://www.soundjay.com/misc/sounds/fail-whistle-01.mp3"},
-        {"name": "ليزر (Laser Shoot)", "url": "https://www.soundjay.com/mechanical/sounds/laser-gun-01.mp3"}
+    "💻 Tech & Digital": [
+        {"name": "Keyboard Mechanical", "url": "https://actions.google.com/sounds/v1/office/typing_medium_speed.ogg"},
+        {"name": "Digital Notification", "url": "https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"},
+        {"name": "Mouse Click", "url": "https://actions.google.com/sounds/v1/office/mouse_click.ogg"},
+        {"name": "UI Selection", "url": "https://actions.google.com/sounds/v1/alarms/beep_short.ogg"}
     ],
-    "UI/Alerts": [
-        {"name": "تنبيه رقمي (Digital Alert)", "url": "https://www.soundjay.com/communication/sounds/digital-beeping-01.mp3"},
-        {"name": "نقر زر (Button Click)", "url": "https://www.soundjay.com/buttons/sounds/button-16.mp3"},
-        {"name": "رسالة واردة", "url": "https://www.soundjay.com/communication/sounds/message-alert-01.mp3"}
+    "🌲 Nature & Ambience": [
+        {"name": "Rain & Thunder", "url": "https://actions.google.com/sounds/v1/weather/rain_on_roof.ogg"},
+        {"name": "Forest Birds", "url": "https://actions.google.com/sounds/v1/ambiences/forest_ambience.ogg"},
+        {"name": "Ocean Waves", "url": "https://actions.google.com/sounds/v1/weather/ocean_waves_crashing.ogg"}
     ]
 }
 
-# عرض المؤثرات في التبويبات
-with tab1:
-    for sfx in sfx_library["Cinematic"]:
-        with st.container():
-            st.markdown(f'<div class="sfx-card"><h3>{sfx["name"]}</h3></div>', unsafe_allow_html=True)
+# عرض المحتوى بشكل منظم
+for category, sounds in sfx_groups.items():
+    st.markdown(f"<h2 class='category-header'>{category}</h2>", unsafe_allow_html=True)
+    
+    # توزيع الأصوات في أعمدة (Grid)
+    cols = st.columns(2)
+    for i, sfx in enumerate(sounds):
+        with cols[i % 2]:
+            st.markdown(f"""
+                <div class='sfx-card'>
+                    <h4>{sfx['name']}</h4>
+                </div>
+            """, unsafe_allow_html=True)
             st.audio(sfx["url"])
-            st.write("---")
 
-with tab2:
-    for sfx in sfx_library["Gaming"]:
-        with st.container():
-            st.markdown(f'<div class="sfx-card"><h3>{sfx["name"]}</h3></div>', unsafe_allow_html=True)
-            st.audio(sfx["url"])
-            st.write("---")
-
-with tab3:
-    for sfx in sfx_library["UI/Alerts"]:
-        with st.container():
-            st.markdown(f'<div class="sfx-card"><h3>{sfx["name"]}</h3></div>', unsafe_allow_html=True)
-            st.audio(sfx["url"])
-            st.write("---")
-
-st.info("نصيحة: يمكنك إضافة المزيد من الروابط داخل ملف الكود في أي وقت.")
+st.divider()
+st.caption("ملاحظة: هذه الأصوات مقدمة من مستودعات Google Open Source وهي تعمل 100% في أي مكان.")
