@@ -1,49 +1,38 @@
 import streamlit as st
-import requests
 
-st.set_page_config(page_title="صائد المؤثرات الاحترافي", layout="wide")
+st.set_page_config(page_title="صائد المؤثرات الذكي", layout="wide")
 
-# تصميم واجهة احترافية متوافقة مع الجوال
 st.markdown("""
     <style>
-    .stApp { background-color: #0e1117; color: #ffffff; }
-    .stAudio { width: 100%; }
-    .main-title { color: #00d4ff; text-align: center; font-size: 30px; font-weight: bold; }
+    .stApp { background-color: #0d1117; color: #58a6ff; }
+    .stAudio { width: 100%; border-radius: 15px; background-color: #161b22; }
     .download-btn {
-        background-color: #00d4ff;
-        color: #000000 !important;
-        padding: 12px;
-        border-radius: 8px;
+        background-color: #00fbff;
+        color: black !important;
+        padding: 15px;
+        border-radius: 10px;
         text-decoration: none;
+        font-weight: bold;
         display: block;
         text-align: center;
-        font-weight: bold;
-        margin-top: 5px;
+        margin-top: 10px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-st.markdown('<p class="main-title">🤖 صائد المؤثرات العالمي</p>', unsafe_allow_html=True)
+st.title("🤖 صائد المؤثرات المباشر")
 
-# محرك البحث
-query = st.text_input("🔍 ابحث عن أي صوت (بالإنجليزي):", "Cinematic")
+# روابط مباشرة 100% من سيرفرات جوجل العامة (Google Storage)
+fx_data = [
+    {"name": "انفجار قوي (Explosion)", "url": "https://storage.googleapis.com/codeskulptor-assets/base_2014/explosion.ogg"},
+    {"name": "تنبيه رقمي (Notification)", "url": "https://storage.googleapis.com/codeskulptor-assets/base_2014/guisounds/pizzicato.ogg"},
+    {"name": "صوت القفز (Jump Effect)", "url": "https://storage.googleapis.com/codeskulptor-assets/jump.ogg"}
+]
 
-if query:
-    # استخدام API مجاني ومستقر لجلب مؤثرات صوتية حقيقية
-    # سنستخدم هنا محرك بحث Freesound (روابط تجريبية مستقرة)
-    st.write(f"🔎 نتائج البحث عن: {query}")
-    
-    # قائمة بأصوات مختارة بعناية لتعمل 100%
-    stable_sounds = [
-        {"name": "انفجار هائل (Explosion)", "url": "https://www.soundjay.com/mechanical/sounds/explosion-02.mp3"},
-        {"name": "انتقال سينمائي (Whoosh)", "url": "https://www.soundjay.com/free-music/sounds/pizzicato-01.mp3"},
-        {"name": "تنبيه تقني (Tech Alert)", "url": "https://www.soundjay.com/button/sounds/button-09.mp3"}
-    ]
-    
-    for sound in stable_sounds:
-        with st.container():
-            st.markdown(f"### 🎵 {sound['name']}")
-            st.audio(sound['url'])
-            # رابط التحميل المباشر
-            st.markdown(f'<a href="{sound["url"]}" target="_blank" class="download-btn">⬇️ تحميل MP3</a>', unsafe_allow_html=True)
-            st.write("---")
+for fx in fx_data:
+    st.subheader(f"🎵 {fx['name']}")
+    # تشغيل الصوت
+    st.audio(fx['url'])
+    # زر التحميل المباشر
+    st.markdown(f'<a href="{fx["url"]}" target="_blank" class="download-btn">⬇️ اضغط هنا للتحميل فوراً</a>', unsafe_allow_html=True)
+    st.write("---")
